@@ -1,0 +1,15 @@
+{
+    "LINK_PICKER_SECTION": "LINKS",
+    "LOCATION_PICKER_SECTION": "GEOS",
+    "BOTS_SETTINGS_SECTION": "BOTS",
+    "PROXIES_SETTINGS_SECTION": "PROXIES",
+    "LAUNCH_PANEL_SECTION": "LAUNCH",
+    "LINK_PICKER_SECTION_DESCRIPTION": "Add links to telegram groups to parse. You can leave this blank if you want to parse only using geo",
+    "LOCATION_PICKER_SECTION_DESCRIPTION": "Pick locations if needed. You can add points or select regions: just choose the right mode in the top-up corner of the map",
+    "BOTS_SETTINGS_SECTION_DESCRIPTION": "Upload files with bot .session files",
+    "PROXIES_SETTINGS_SECTION_DESCRIPTION": "Upload files",
+    "LAUNCH_PANEL_SECTION_DESCRIPTION": "777",
+    "NEXT": "Next",
+    "LAUNCH": "LAUNCH",
+    "LOGS": "Logs"
+}

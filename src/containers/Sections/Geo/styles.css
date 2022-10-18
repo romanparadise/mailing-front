@@ -1,0 +1,7 @@
+.leaflet-top.leaflet-right {
+    display: none;
+}
+
+.flex-container.flex-wrap.some-margin {
+    min-height: 30px;
+}

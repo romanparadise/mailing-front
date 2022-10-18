@@ -1,0 +1,43 @@
+.passphrase-box {
+    position: relative;
+    top: 222px;
+    margin: auto auto;
+    width: 250px;
+    height: 100px;
+    background-color: transparent;
+}
+
+.passphrase-box>div>* {
+    margin: 3px;
+}
+
+.passphrase-box button {
+    float: right;
+    background-color: #b0f !important;
+}
+
+.passphrase-box input {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    appearance: none;
+    font-size: inherit;
+    line-height: inherit;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 4px;
+    color: #FFF;
+    text-transform: uppercase;
+    background-color: transparent;
+    border-color: var(--theme-ui-colors-lightgray,#444);
+}
+
+.passphrase-box input:focus {
+    border-color: var(--theme-ui-colors-primary,#0ff);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--theme-ui-colors-primary,#0ff);
+}
