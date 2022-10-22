@@ -1,10 +1,18 @@
+body {
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 .App {
   text-align: center;
 }
 
 .container {
   top: 0;
-  background-color: #282c34;
+  background-color: #000;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
@@ -62,5 +70,101 @@ h3 {
 }
 
 .ant-segmented-item-selected>.ant-segmented-item-label {
-  color: #000 !important;
+  color: #fff !important;
+}
+
+.ant-segmented-item.ant-segmented-item-selected {
+  background: #b0f !important;
+}
+
+.ant-segmented-thumb-motion-appear {
+  background: #b0f !important;
+}
+
+.ant-collapse-item {
+  border-bottom-color: #333 !important;
+  color: #FFF !important; 
+}
+
+.ant-collapse.ant-collapse-icon-position-start {
+  background: #111;
+  border-color: #333;
+  color: #FFF !important;
+}
+
+.ant-collapse-content-box {
+  background: #111;
+  color: #FFF !important;
+  font-family: sans-serif;
+}
+
+.ant-collapse-content.ant-collapse-content-active {
+  border-top-color: #b0f !important;
+}
+
+.ant-collapse-header-text {
+  color: #FFF !important;
+}
+
+.ant-btn.ant-btn-primary {
+  background: #b0f !important;
+  border-color: #b0f !important;
+  margin-left: 5px;
+}
+
+.ant-btn.ant-btn-primary.ant-btn-background-ghost {
+  background: transparent !important;
+  color: #b0f !important;
+}
+
+input[type="file"]::file-selector-button {
+  border: 1px solid #b0f;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: #111;
+  transition: 1s;
+  color: #FFF;
+  margin: 5px;
+}
+
+input[type="file"] {
+  width: 1200px;
+  color: #555;
+}
+
+.ant-checkbox-group-item {
+  display: flex;
+}
+
+.ant-checkbox-group-item {
+  color: #fff !important;
+}
+
+.ant-checkbox-disabled + span {
+  color: #555 !important;
+}
+
+.check-items {
+  margin: 10px 10px;
+  width: 100%;
+}
+
+.flex-container.map-tag {
+  background: #b0f !important;
+}
+
+.flex-container.map-tag * {
+  color: #FFF !important;
+}
+
+.ant-result.ant-result-success * {
+  color: #fff !important;
+}
+
+.ant-result-icon span.anticon.anticon-check-circle * {
+  color: #b0f !important;
+}
+
+.ant-input-number {
+  margin-left: 5px;
 }

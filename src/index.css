@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.form-btn {
+  color: #b0f;
+  border-color: #b0f;
+  text-shadow: none;
+  background: transparent;
+  border-radius: 2px;
+  border: solid 1px #b0f;
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  width: 300px;
+  margin: 10px auto;
+}
+
+.form-btn:hover {
+  color: #FFF;
+  background: #b0f;
+}

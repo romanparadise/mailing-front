@@ -1,35 +1,61 @@
 import axios from 'axios'
 
-const launchMailing = async (name, max_messages, bots_to_use) => {
+function choice(arr) {
+    return arr[Math.floor(Math.random()*arr.length)]
+}
+
+const launchMailing = async ({name, max_messages, bots_to_use, recepient_groups}) => {
     const params = {
         name,
         max_messages,
-        bots_to_use
+        bots_to_use,
+        recepient_groups
     }
     // const { data } = await axios.post(
     //     `${process.env.REACT_APP_API_BASE_URL}/launchMailing`,
     //     params
     // );
 
-    const data = "some_id"
+    await new Promise((res, rej) => {
+        setTimeout(() => res(10), 1000)
+    })
+
+    const data = choice([
+        {
+            success: true,
+        }, 
+        {
+            error: "ERROR DESCRIPTION"
+        }
+    ])
 
     return data
 }
 
 
-const launchParsing = async (name, points, groups, circles) => {
+const launchParsing = async ({name, points, groups}) => {
     const params = {
         name,
         points,
         groups,
-        circles
     }
     // const { data } = await axios.post(
     //     `${process.env.REACT_APP_API_BASE_URL}/launchParsing`,
     //     params
     // );
 
-    const data = "some_id"
+    await new Promise((res, rej) => {
+        setTimeout(() => res(10), 1000)
+    })
+
+    const data = choice([
+        {
+            success: true,
+        }, 
+        {
+            error: "ERROR DESCRIPTION"
+        }
+    ])
 
     return data
 }
@@ -39,12 +65,16 @@ const fetchBots = async () => {
     //     `${process.env.REACT_APP_API_BASE_URL}/bots`
     // );
 
+    await new Promise((res, rej) => {
+        setTimeout(() => res(10), 1000)
+    })
+
     const data = [
         {
             name: "fileOne",
             id: 'adasndaklsdad',
             amount: 120,
-            occupies: true,
+            occupied: true,
         },
         {
             name: "fileTwo",
@@ -57,36 +87,15 @@ const fetchBots = async () => {
     return data
 }
 
-const fetchProxies = async () => {
-    // const { data } = await axios.get(
-    //     `${process.env.REACT_APP_API_BASE_URL}/proxies`
-    // );
-
-    const data = {
-        amount: 1000
-    }
-
-    return data
-}
-
-const fetchProgress = async (mailingId) => {
-    // const { data } = await axios.get(
-    //     `${process.env.REACT_APP_API_BASE_URL}/progress/mailing_id=${mailingId}`
-    // );
-
-    const data = {
-        "sentAmount": 10431,
-        "botsDied": 100,
-        "botsAlive": 300,
-    }
-
-    return data
-}
 
 const fetchLogs = async (mailingId) => {
     // const { data } = await axios.get(
     //     `${process.env.REACT_APP_API_BASE_URL}/logs/mailing_id=${mailingId}`
     // );
+
+    await new Promise((res, rej) => {
+        setTimeout(() => res(10), 1000)
+    })
 
     const data = null
 
@@ -98,10 +107,15 @@ const fetchParsedGroups = async () => {
     //     `${process.env.REACT_APP_API_BASE_URL}/parsed`
     // );
 
+
+    await new Promise((res, rej) => {
+        setTimeout(() => res(10), 1000)
+    })
+
     const data = [
         {
             "id": "wfdnnsdfkndwksf",
-            "name": "",
+            "name": "name",
             "amount": 300,
         }
     ]
@@ -113,6 +127,10 @@ const fetchMailings = async () => {
     // const { data } = await axios.get(
     //     `${process.env.REACT_APP_API_BASE_URL}/mailings`
     // );
+
+    await new Promise((res, rej) => {
+        setTimeout(() => res(10), 1000)
+    })
 
     const data = {
         "mailings": [
@@ -149,8 +167,6 @@ export {
     launchMailing,
     launchParsing,
     fetchBots,
-    fetchProxies,
-    fetchProgress,
     fetchLogs,
     fetchParsedGroups,
     fetchMailings

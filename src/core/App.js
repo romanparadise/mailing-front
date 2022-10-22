@@ -80,22 +80,24 @@ function App() {
     }
   );
 
+  const { t } = useTranslation()
+
 
   const SECTIONS = [
     {
       name: 'UPLOAD_SECTION',
       component: <BotsNProxies />,
-      description: "UPLOAD_SECTION_DESCRIPTION"
+      description: t("UPLOAD_SECTION_DESCRIPTION")
     },
     {
       name: 'LINK_PICKER_SECTION',
       component: <Links />,
-      description: "LINK_PICKER_SECTION_DESCRIPTION"
+      description: t("LINK_PICKER_SECTION_DESCRIPTION")
     },
     {
       name: 'LOCATION_PICKER_SECTION',
       component: <Geo />,
-      description: "LOCATION_PICKER_SECTION_DESCRIPTION"
+      description: t("LOCATION_PICKER_SECTION_DESCRIPTION")
     },
     {
       name: 'LAUNCH_PANEL_SECTION',
@@ -104,20 +106,18 @@ function App() {
         parsedGroups={parsingData}
         proxiesAmount={1000}
       />,
-      description: "See if everything is fine and launch sending"
+      description: t("LAUNCH_SECTION_DESCRIPTION")
     },
     {
       name: 'MAILINGS_SECTION',
       component: <Mailings 
         mailingsData={mailingsData}
       />,
-      description: "danknklnkasndkasndkn"
+      description: t("MAILINGS_SECTION_DESCRIPTION")
     },
   ]
 
   const [ section, setSection ] = useState(0)
-
-  const { t } = useTranslation()
 
   if (!userIsVerified) {
     return (
@@ -136,7 +136,7 @@ function App() {
 
       <div className="container">
         <div className='contents'>
-          <div style={{ color: "#999", fontSize: "14pt"}}>
+          <div style={{ width: '800px', margin: "0 auto", color: "#999", fontSize: "14pt"}}>
             {
               SECTIONS[section]?.description
             }
@@ -148,9 +148,11 @@ function App() {
       </div>
       
       <div style={{ position: 'fixed', bottom: 0, left: '50%', transform: 'translate(-50%)', margin: '10px' }}>
-        <Button onClick={ () => setSection(m => Math.min(m + 1, SECTIONS.length - 1)) } type={section === SECTIONS.length - 1 ? "danger" : "primary"} ghost>
-          {section === SECTIONS.length - 1 ? "LAUNCH" : "Next"}
-        </Button>
+        {section !== SECTIONS.length - 1 ? 
+          <Button onClick={ () => setSection(m => Math.min(m + 1, SECTIONS.length - 1)) } type={section === SECTIONS.length - 1 ? "danger" : "primary"} ghost>
+            {t("NEXT")}
+          </Button>
+          : null }
       </div>
 
       <Toaster
