@@ -26,7 +26,7 @@ body {
   color: white;
 }
 
-.contents>* {
+.contents > * {
   margin-top: 20px !important;
 }
 
@@ -41,19 +41,19 @@ h3 {
 
 .map-tag {
   height: 100% !important;
-  background: #FFF !important;
+  background: #fff !important;
   font-size: 12pt !important;
   padding: 0 4px !important;
   border-radius: 2px !important;
   margin-top: 2px !important;
 }
 
-.leaflet-control>button {
+.leaflet-control > button {
   color: #000;
 }
 
 .ant-segmented {
-  color: #FFF !important;
+  color: #fff !important;
   background: transparent !important;
 }
 
@@ -62,14 +62,14 @@ h3 {
 }
 
 .ant-segmented-item-label {
-  color: #FFF;
+  color: #fff;
 }
 
 .ant-segmented-item-label:hover {
-  text-shadow: 0 0 1px #FFF;
+  text-shadow: 0 0 1px #fff;
 }
 
-.ant-segmented-item-selected>.ant-segmented-item-label {
+.ant-segmented-item-selected > .ant-segmented-item-label {
   color: #fff !important;
 }
 
@@ -83,18 +83,18 @@ h3 {
 
 .ant-collapse-item {
   border-bottom-color: #333 !important;
-  color: #FFF !important; 
+  color: #fff !important;
 }
 
 .ant-collapse.ant-collapse-icon-position-start {
   background: #111;
   border-color: #333;
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .ant-collapse-content-box {
   background: #111;
-  color: #FFF !important;
+  color: #fff !important;
   font-family: sans-serif;
 }
 
@@ -103,7 +103,7 @@ h3 {
 }
 
 .ant-collapse-header-text {
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .ant-btn.ant-btn-primary {
@@ -118,12 +118,15 @@ h3 {
 }
 
 input[type="file"]::file-selector-button {
-  border: 1px solid #b0f;
-  padding: 0.2em 0.4em;
-  border-radius: 0.2em;
-  background-color: #111;
+  /* border: 1px solid #b0f; */
+  border: none;
+  padding: 0px 40px;
+  border-radius: 0;
+  background-color: transparent;
+  border-bottom: dotted 1px #b0f;
+  border-top: dotted 1px #b0f;
   transition: 1s;
-  color: #FFF;
+  color: #b0f;
   margin: 5px;
 }
 
@@ -154,7 +157,7 @@ input[type="file"] {
 }
 
 .flex-container.map-tag * {
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .ant-result.ant-result-success * {
@@ -167,4 +170,10 @@ input[type="file"] {
 
 .ant-input-number {
   margin-left: 5px;
+}
+
+.text-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
