@@ -39,6 +39,7 @@ const Links = () => {
         name: parsingName,
         groups: links,
       });
+      console.log('res is', res)
     } catch(e) {
       toast.error(
         `${t("COULD_NOT_RUN_PARSING")}: ${e}`
@@ -49,7 +50,8 @@ const Links = () => {
 
     console.log(res)
     
-    if (res?.message.includes('success')) {
+    if (res?.message?.includes('success')) {
+      console.log('res is', res)
       setLinks([]);
       toast(t("PARSING_STARTED"), {
         icon: "👏",

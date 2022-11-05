@@ -50,47 +50,78 @@ const BotsNProxies = () => {
       return;
     }
 
-    const botsFileBlob = new Blob([botsFile], {
-          // This will set the mimetype of the file
-          type: "application/zip"
-        });
-    //const BlobName = botsFile.name;
+    // const botsFileBlob = new Blob([botsFile], {
+    //       // This will set the mimetype of the file
+    //       type: "application/zip"
+    //     });
+    // //const BlobName = botsFile.name;
 
-    const proxiesFileBlob = new Blob([proxiesFile], {
-      // This will set the mimetype of the file
-      type: "text/plain"
-    });
+    // const proxiesFileBlob = new Blob([proxiesFile], {
+    //   // This will set the mimetype of the file
+    //   type: "text/plain"
+    // });
 
-    const url =
-      process.env.REACT_APP_API_BASE_URL + '/' +
-      process.env.REACT_APP_API_UPLOAD_FILES_ENDPOINT;
-    const formData = new FormData();
-    formData.append("bots", botsFileBlob);
-    formData.append("proxies", proxiesFileBlob);// can specify filename as 3rd parameter
+    // const url =
+    //   process.env.REACT_APP_API_BASE_URL + '/' +
+    //   process.env.REACT_APP_API_UPLOAD_FILES_ENDPOINT
+      
 
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
+    var formdata = new FormData();
+    formdata.append("bots", botsFile, "file");
+    formdata.append("proxies", proxiesFile, "file");
+    
+    var requestOptions = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
     };
-
-    axios
-      .post(url, formData, config)
-      .then((res) => {
-          toast(res.message, {
-            icon: "👏",
-            style: {
-              borderRadius: "10px",
-              background: "#333",
-              color: "#fff",
-            },
-          });
+    
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/uploadBots`, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        console.log(result)
+        toast(result.toString(), {
+                icon: "👏",
+                style: {
+                  borderRadius: "10px",
+                  background: "#333",
+                  color: "#fff",
+                },
+              });
       })
-      .catch((e) => {
+      .catch(error => {
+        console.log('error', error)
         toast.error(
-          `${t("COULD_NOT_UPLOAD")}: ${e.message || "Something went wrong"}`
+          `${t("COULD_NOT_UPLOAD")}: ${error.toString() || "Something went wrong"}`
         );
       });
+    // const formData = new FormData();
+    // formData.append("bots", botsFileBlob);
+    // formData.append("proxies", proxiesFileBlob);// can specify filename as 3rd parameter
+
+    // const config = {
+    //   headers: {
+    //     "content-type": "multipart/form-data",
+    //   },
+    // };
+
+    // axios
+    //   .post(url, formData, config)
+    //   .then((res) => {
+    //       toast(res.message, {
+    //         icon: "👏",
+    //         style: {
+    //           borderRadius: "10px",
+    //           background: "#333",
+    //           color: "#fff",
+    //         },
+    //       });
+    //   })
+    //   .catch((e) => {
+    //     toast.error(
+    //       `${t("COULD_NOT_UPLOAD")}: ${e.message || "Something went wrong"}`
+    //     );
+    //   });
   };
 
   return (

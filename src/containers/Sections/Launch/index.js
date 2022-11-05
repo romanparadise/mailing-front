@@ -51,7 +51,7 @@ const Panel = ({ bots, parsedGroups }) => {
         } else {
           toast.error(
             `${t("COULD_NOT_RUN_MAILING")}: ${
-              res.error || "Something went wrong"
+              res?.error || "Something went wrong"
             }`
           );
           setSelectedBots([])
@@ -136,7 +136,7 @@ const Panel = ({ bots, parsedGroups }) => {
             <div>{t("SELECT_PARSED_BATCHES")}</div>
 
             <Checkbox.Group
-              options={parsedGroups.map((g) => {
+              options={parsedGroups?.map((g) => {
                 return {
                   label: (
                     <div>
@@ -173,18 +173,14 @@ const Panel = ({ bots, parsedGroups }) => {
             <div>
               <div>Bots:</div>
               <div>
-                {bots
-                  .filter((b) => selectedBots.includes(b.name))
-                  .map((b) => b.name)
+                {bots?.filter((b) => selectedBots.includes(b.name))?.map((b) => b.name)
                   .join(", ")}
               </div>
             </div>,
             <div>
               <div>Groups:</div>
               <div>
-                {parsedGroups
-                  .filter((g) => selectedGroups.includes(g.name))
-                  .map((g) => g.name)
+                {parsedGroups?.filter((g) => selectedGroups.includes(g.name))?.map((g) => g.name)
                   .join(", ")}
               </div>
             </div>,
