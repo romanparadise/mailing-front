@@ -57,7 +57,7 @@ function App() {
     ["mailings"],
     async () => {
       const data = await fetchMailings();
-      setMailingsData(data.mailings);
+      setMailingsData(data);
 
       return data;
     },
@@ -167,7 +167,7 @@ function App() {
           bottom: 0,
           left: "50%",
           transform: "translate(-50%)",
-          margin: "10px",
+          margin: "0",
         }}
       >
         {section !== SECTIONS.length - 1 ? (

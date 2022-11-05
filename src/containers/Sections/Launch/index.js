@@ -11,6 +11,8 @@ import { launchMailing } from "requests";
 const Panel = ({ bots, parsedGroups }) => {
   const { t } = useTranslation();
 
+  console.log(888, parsedGroups, bots)
+
   const [selectedBots, setSelectedBots] = useState([]);
   const [selectedGroups, setSelectedGroups] = useState([]);
   const [maxAmount, setMaxAmount] = useState(1000);
@@ -33,10 +35,10 @@ const Panel = ({ bots, parsedGroups }) => {
       name: mailingName,
       max_messages: maxAmount,
       bots_to_use: selectedBots,
-      recepient_groups: selectedGroups,
+      recipient_groups: selectedGroups,
     })
       .then((res) => {
-        if (res.success) {
+        if (res?.status==="success") {
           setHasSent(true);
           toast("started!", {
             icon: "👏",
@@ -49,15 +51,23 @@ const Panel = ({ bots, parsedGroups }) => {
         } else {
           toast.error(
             `${t("COULD_NOT_RUN_MAILING")}: ${
-              res?.error || "Something went wrong"
+              res.error || "Something went wrong"
             }`
           );
+          setSelectedBots([])
+          setSelectedGroups([])
         }
       })
       .catch((e) => {
         toast.error(`${t("COULD_NOT_RUN_MAILING")}: ${e}`);
+        setSelectedBots([])
+        setSelectedGroups([])
       })
-      .finally(() => setHasStarted(false));
+      .finally(() => {
+        setHasStarted(false)
+        setSelectedBots([])
+        setSelectedGroups([])
+      });
   };
 
   const launchControls = (
@@ -97,7 +107,7 @@ const Panel = ({ bots, parsedGroups }) => {
       <>
         <div style={{ color: "#b0f", fontSize: "15pt" }}>{`${t(
           "AVAILABLE_BOTS"
-        )} : ${bots?.map((b) => b.amount).reduce((p, c) => p + c) || 0}`}</div>
+        )} : ${bots?.map((b) => b.amount).reduce((p, c) => p + c, 0) || 0}`}</div>
         <div
           style={{
             width: "500px",
@@ -112,7 +122,7 @@ const Panel = ({ bots, parsedGroups }) => {
               options={bots?.map((botGroup) => {
                 return {
                   label: botGroup.name + " - " + botGroup.amount,
-                  value: botGroup.id,
+                  value: botGroup.name,
                   disabled: botGroup.occupied,
                 };
               })}
@@ -130,10 +140,10 @@ const Panel = ({ bots, parsedGroups }) => {
                 return {
                   label: (
                     <div>
-                      <span>{g.name}</span> - <span>{g.amount}</span>
+                      <span>{g.name}</span> - <span>{g.amout}</span>
                     </div>
                   ),
-                  value: g.id,
+                  value: g.name,
                 };
               })}
               onChange={(groups) => {
@@ -164,7 +174,7 @@ const Panel = ({ bots, parsedGroups }) => {
               <div>Bots:</div>
               <div>
                 {bots
-                  .filter((b) => selectedBots.includes(b.id))
+                  .filter((b) => selectedBots.includes(b.name))
                   .map((b) => b.name)
                   .join(", ")}
               </div>
@@ -173,7 +183,7 @@ const Panel = ({ bots, parsedGroups }) => {
               <div>Groups:</div>
               <div>
                 {parsedGroups
-                  .filter((g) => selectedGroups.includes(g.id))
+                  .filter((g) => selectedGroups.includes(g.name))
                   .map((g) => g.name)
                   .join(", ")}
               </div>

@@ -5,11 +5,33 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Collapse } from 'antd';
+import structureImage from './structure.jpg'
+
+const { Panel } = Collapse;
+
+const Requirements = () => {
+  const { t } = useTranslation();
+
+  const text = t('FILES_REQUIREMENTS')
+
+
+  return (
+    <div style={{width: '600px', margin: '35px auto'}}>
+      <Collapse>
+        <Panel header={t("SHOW_REQUIREMENTS")}>
+          <img alt='help' src={structureImage}></img>
+          <p>{text}</p>
+        </Panel>
+      </Collapse>
+    </div>
+  )
+}
 
 const BotsNProxies = () => {
   const [botsFile, setBotsFile] = useState();
   const [proxiesFile, setProxiesFile] = useState();
-  const [botsName, setBotsName] = useState("");
+  //const [botsName, setBotsName] = useState("");
   const { t } = useTranslation();
 
   function handleBotsChange(event) {
@@ -23,18 +45,29 @@ const BotsNProxies = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!botsFile || !proxiesFile || !botsName) {
-      toast.error(`${t("UPLOAD_BOTH_FILES_AND_SPECIFY_NAME")}`);
+    if (!botsFile || !proxiesFile/* || !botsName*/) {
+      toast.error(`${t("UPLOAD_BOTH_FILES")}`);
       return;
     }
 
+    const botsFileBlob = new Blob([botsFile], {
+          // This will set the mimetype of the file
+          type: botsFile.type
+        });
+    //const BlobName = botsFile.name;
+
+    const proxiesFileBlob = new Blob([proxiesFile], {
+      // This will set the mimetype of the file
+      type: proxiesFile.type
+    });
+
     const url =
-      process.env.REACT_APP_API_URL +
+      process.env.REACT_APP_API_BASE_URL +
       process.env.REACT_APP_API_UPLOAD_FILES_ENDPOINT;
     const formData = new FormData();
-    formData.append("bots", botsFile);
-    formData.append("proxies", proxiesFile);
-    formData.append("name", botsName);
+    formData.append("bots", botsFileBlob);
+    formData.append("proxies", proxiesFileBlob);// can specify filename as 3rd parameter
+
     const config = {
       headers: {
         "content-type": "multipart/form-data",
@@ -44,12 +77,7 @@ const BotsNProxies = () => {
     axios
       .post(url, formData, config)
       .then((res) => {
-        if (res?.data?.error) {
-          toast.error(
-            `${t("COULD_NOT_UPLOAD")}: ${res?.error || "Something went wrong"}`
-          );
-        } else {
-          toast(t("FILES_UPLOADED"), {
+          toast(res.message, {
             icon: "👏",
             style: {
               borderRadius: "10px",
@@ -57,7 +85,6 @@ const BotsNProxies = () => {
               color: "#fff",
             },
           });
-        }
       })
       .catch((e) => {
         toast.error(
@@ -68,6 +95,7 @@ const BotsNProxies = () => {
 
   return (
     <div>
+      <Requirements />
       <form
         style={{
           fontSize: "15pt",
@@ -96,14 +124,14 @@ const BotsNProxies = () => {
           <input type="file" onChange={handleProxiesChange} />
         </div>
 
-        <div style={{ width: "100%", margin: "20px" }}>
+        {/* <div style={{ width: "100%", margin: "20px" }}>
           {t("ENTER_BOTS_GROUP_NAME")}
           <Input
             style={{ width: "500px" }}
             value={botsName}
             onChange={(e) => setBotsName(e.target.value)}
           />
-        </div>
+        </div> */}
 
         <button className="form-btn" type="submit">
           {t("UPLOAD")}

@@ -14,7 +14,7 @@ const Links = () => {
 
   const [links, setLinks] = useState([]);
   const [parsingName, setParsingName] = useState(
-    "Groups parsing - " + Date().toString().split("GMT")[0]
+    Math.round(Math.random()*1000000).toString()//"Groups parsing - " + Date().toString().split("GMT")[0]
   );
 
   const addLink = (link) =>
@@ -33,12 +33,23 @@ const Links = () => {
       return;
     }
 
-    const res = await launchParsing({
-      name: parsingName,
-      groups: links,
-    });
+    let res;
+    try {
+      res = await launchParsing({
+        name: parsingName,
+        groups: links,
+      });
+    } catch(e) {
+      toast.error(
+        `${t("COULD_NOT_RUN_PARSING")}: ${e}`
+      );
+      setHasStarted(false);
+      return
+    }
 
-    if (res && !res.error) {
+    console.log(res)
+    
+    if (res?.message.includes('success')) {
       setLinks([]);
       toast(t("PARSING_STARTED"), {
         icon: "👏",
@@ -49,8 +60,9 @@ const Links = () => {
         },
       });
     } else {
+      console.log('error: ', res)
       toast.error(
-        `${t("COULD_NOT_RUN_PARSING")}: ${res?.error || "Something went wrong"}`
+        `${t("COULD_NOT_RUN_PARSING")}: ${res?.message || res?.detail?.msg || "Something went wrong"}`
       );
     }
 
@@ -68,14 +80,16 @@ const Links = () => {
         flexDirection: "row",
       }}
     >
-      <Input
+      {/* <Input
         style={{ width: "100%" }}
         value={parsingName}
         onChange={(e) => setParsingName(e.target.value)}
-      />
-      <Button disabled={hasStarted} onClick={sendParsingRequest} type="primary">
-        {t("PARSE")}
-      </Button>
+      /> */}
+      <div style={{margin: '0 auto'}}>
+        <Button disabled={hasStarted} onClick={sendParsingRequest} type="primary">
+          {t("PARSE")}
+        </Button>
+      </div>
     </div>
   );
 
