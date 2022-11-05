@@ -73,7 +73,8 @@ const BotsNProxies = () => {
     var requestOptions = {
       method: 'POST',
       body: formdata,
-      redirect: 'follow'
+      redirect: 'follow',
+      mode: "no-cors",
     };
     
     fetch(`${process.env.REACT_APP_API_BASE_URL}/uploadBots`, requestOptions)
