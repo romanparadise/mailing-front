@@ -10,7 +10,7 @@ const launchMailing = async ({
   bots_to_use,
   recipient_groups,
 }) => {
-  let url = `https://elpedroche.ru/launchMailing?name=${name.toString().replaceAll(' ', '_')}&max_messages=${max_messages}`;
+  let url = `${process.env.REACT_APP_API_BASE_URL}/launchMailing?name=${name.toString().replaceAll(' ', '_')}&max_messages=${max_messages}`;
   url += `&bots_to_use=${bots_to_use.join(',')}`
   url += `&recipient_groups=${recipient_groups.join(',')}`
 
@@ -38,7 +38,7 @@ const launchMailing = async ({
 };
 
 const launchParsing = async ({ name, points=[], groups=[] }) => {
-  let url = `https://elpedroche.ru/launchParsing?name=${name.toString().replaceAll(' ', '_')}`;
+  let url = `${process.env.REACT_APP_API_BASE_URL}/launchParsing?name=${name.toString().replaceAll(' ', '_')}`;
   if (groups.length > 0) {
     url += `&groups4parse=${groups.join(',')}`
   }

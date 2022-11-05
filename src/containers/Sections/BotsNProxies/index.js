@@ -52,17 +52,17 @@ const BotsNProxies = () => {
 
     const botsFileBlob = new Blob([botsFile], {
           // This will set the mimetype of the file
-          type: botsFile.type
+          type: "application/zip"
         });
     //const BlobName = botsFile.name;
 
     const proxiesFileBlob = new Blob([proxiesFile], {
       // This will set the mimetype of the file
-      type: proxiesFile.type
+      type: "text/plain"
     });
 
     const url =
-      process.env.REACT_APP_API_BASE_URL +
+      process.env.REACT_APP_API_BASE_URL + '/' +
       process.env.REACT_APP_API_UPLOAD_FILES_ENDPOINT;
     const formData = new FormData();
     formData.append("bots", botsFileBlob);

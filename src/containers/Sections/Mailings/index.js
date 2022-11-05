@@ -26,7 +26,7 @@ const fetchProgress = async (t, id) => {
 
 const { Panel } = Collapse;
 
-const Mailings = ({ mailingsData }) => {
+const Mailings = ({ mailingsData=[] }) => {
   const { t } = useTranslation();
 
   console.log(666, mailingsData)
