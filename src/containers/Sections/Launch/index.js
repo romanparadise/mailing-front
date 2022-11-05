@@ -38,7 +38,7 @@ const Panel = ({ bots, parsedGroups }) => {
       recipient_groups: selectedGroups,
     })
       .then((res) => {
-        if (res?.status==="success") {
+        if (res?.message?.includes("success")) {
           setHasSent(true);
           toast("started!", {
             icon: "👏",
@@ -51,7 +51,7 @@ const Panel = ({ bots, parsedGroups }) => {
         } else {
           toast.error(
             `${t("COULD_NOT_RUN_MAILING")}: ${
-              res?.error || "Something went wrong"
+              res?.error || res?.message || "Something went wrong"
             }`
           );
           setSelectedBots([])

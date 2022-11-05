@@ -50,7 +50,7 @@ const Links = () => {
 
     console.log(res)
     
-    if (res?.message?.includes('success')) {
+    if (res && !res.detail) {
       console.log('res is', res)
       setLinks([]);
       toast(t("PARSING_STARTED"), {
