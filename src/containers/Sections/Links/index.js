@@ -50,7 +50,7 @@ const Links = () => {
 
     console.log(res)
     
-    if (res && !res.detail) {
+    if (res && !res.detail && !res.error) {
       console.log('res is', res)
       setLinks([]);
       toast(t("PARSING_STARTED"), {
@@ -64,7 +64,7 @@ const Links = () => {
     } else {
       console.log('error: ', res)
       toast.error(
-        `${t("COULD_NOT_RUN_PARSING")}: ${res?.message || res?.detail?.msg || "Something went wrong"}`
+        `${t("COULD_NOT_RUN_PARSING")}: ${res?.message || res?.detail?.msg || res.error || "Something went wrong"}`
       );
     }
 

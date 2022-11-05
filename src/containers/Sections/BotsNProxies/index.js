@@ -67,8 +67,8 @@ const BotsNProxies = () => {
       
 
     var formdata = new FormData();
-    formdata.append("bots", botsFile, "file");
-    formdata.append("proxies", proxiesFile, "file");
+    formdata.append("bots", botsFile);
+    formdata.append("proxies", proxiesFile);
     
     var requestOptions = {
       method: 'POST',
