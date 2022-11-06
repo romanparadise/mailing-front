@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Collapse } from 'antd';
 import structureImage from './structure.jpg'
+import e from "express";
 
 const { Panel } = Collapse;
 
@@ -78,17 +79,25 @@ const BotsNProxies = () => {
     };
     
     fetch(`${process.env.REACT_APP_API_BASE_URL}/uploadBots`, requestOptions)
-      .then(response => response.text())
+      .then(response => response?.message)
       .then(result => {
         console.log(result)
-        toast(result.toString(), {
-                icon: "👏",
-                style: {
-                  borderRadius: "10px",
-                  background: "#333",
-                  color: "#fff",
-                },
-              });
+        if (result?.toLower().includes('success')) {
+          toast(result.toString(), {
+            icon: "💃🏼",
+            style: {
+              borderRadius: "10px",
+              background: "#333",
+              color: "#fff",
+            },
+          });
+        } else {
+          console.log('error', result?.error)
+          toast.error(
+            `${t("COULD_NOT_UPLOAD")}: ${result?.error?.toString() || result || "Something went wrong"}`
+          );
+        }
+        
       })
       .catch(error => {
         console.log('error', error)

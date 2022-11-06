@@ -38,7 +38,7 @@ const Panel = ({ bots, parsedGroups }) => {
       recipient_groups: selectedGroups,
     })
       .then((res) => {
-        if (res?.message?.includes("success")) {
+        if (res?.message?.toLower().includes("success")) {
           setHasSent(true);
           toast("started!", {
             icon: "👏",
