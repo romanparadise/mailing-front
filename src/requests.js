@@ -24,8 +24,6 @@ const launchMailing = async ({
 
   let data = null
 
-  console.log(url)
-
   await fetch(url, options)
     .then((response) => response.json())
     .then((res) => {
@@ -56,15 +54,13 @@ const launchParsing = async ({ name, points=[], groups=[] }) => {
 
   let data = null
 
-  console.log(url)
-
   await fetch(url, options)
     .then((response) => response.json())
     .then((res) => {
       data = res
     });
 
-    console.log(data)
+    console.log('parsing started:', data)
 
     return data;
   };
@@ -105,7 +101,6 @@ const fetchBots = async () => {
   //   },
   // ];
 
-  console.log("BOTS FETCHED", data)
 
   return data;
 };
@@ -180,7 +175,7 @@ const fetchMailings = async () => {
   //   ],
   // };
 
-  console.log('fetched mailings', data?.mailings)
+  // console.log('fetched mailings', data?.mailings)
 
   return data?.mailings || [];
 };

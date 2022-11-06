@@ -78,11 +78,8 @@ const BotsNProxies = () => {
     };
     
     fetch(`${process.env.REACT_APP_API_BASE_URL}/uploadBots`, requestOptions)
-      .then(response => response?.message)
-      .then(result => {
-        console.log(result)
-        if (result?.toLower().includes('success')) {
-          toast(result.toString(), {
+      .then(() => {
+          toast(t("FILES_UPLOADED"), {
             icon: "💃🏼",
             style: {
               borderRadius: "10px",
@@ -90,16 +87,9 @@ const BotsNProxies = () => {
               color: "#fff",
             },
           });
-        } else {
-          console.log('error', result?.error)
-          toast.error(
-            `${t("COULD_NOT_UPLOAD")}: ${result?.error?.toString() || result || "Something went wrong"}`
-          );
-        }
-        
-      })
+        })
       .catch(error => {
-        console.log('error', error)
+        console.log('upload bots error', error)
         toast.error(
           `${t("COULD_NOT_UPLOAD")}: ${error.toString() || "Something went wrong"}`
         );

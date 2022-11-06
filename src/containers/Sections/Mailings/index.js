@@ -29,8 +29,6 @@ const { Panel } = Collapse;
 const Mailings = ({ mailingsData=[] }) => {
   const { t } = useTranslation();
 
-  console.log(666, mailingsData)
-
   const downloadLogs = (id) => {
     window.open(`https://elpedroche.ru/logs?mailing_id=${id}`, '_blank')
   };
@@ -47,14 +45,14 @@ const Mailings = ({ mailingsData=[] }) => {
               {
                 <>
                   <Button
-                    key={"btn"}
+                    key={"btn1"}
                     onClick={() => downloadLogs(item.id)}
                     type="primary"
                   >
                     {t("DOWNLOAD_REPORT")}
                   </Button>
                   <Button
-                    key={"btn"}
+                    key={"btn2"}
                     onClick={() => fetchProgress(t, item.id)}
                     type="primary"
                   >

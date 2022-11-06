@@ -29,7 +29,6 @@ const Geo = () => {
         name: parsingName,
         points: pointsOnMap,
       });
-      console.log(res)
     } catch(e) {
       toast.error(
         `${t("COULD_NOT_RUN_PARSING")}: ${e}`

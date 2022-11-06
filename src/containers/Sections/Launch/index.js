@@ -11,10 +11,8 @@ import { launchMailing } from "requests";
 const Panel = ({ bots, parsedGroups }) => {
   const { t } = useTranslation();
 
-  console.log(888, parsedGroups, bots)
-
   const [selectedBots, setSelectedBots] = useState([]);
-  const [selectedGroups, setSelectedGroups] = useState([]);
+  const [selectedGroups, setSelectedGroups] = useState([]); // TODO: remove on invalidatiom
   const [maxAmount, setMaxAmount] = useState(1000);
 
   const [mailingName, setMailingName] = useState(
@@ -38,9 +36,9 @@ const Panel = ({ bots, parsedGroups }) => {
       recipient_groups: selectedGroups,
     })
       .then((res) => {
-        if (res?.message?.toLower().includes("success")) {
+        if (res?.message?.toLowerCase().includes("succes")) {
           setHasSent(true);
-          toast("started!", {
+          toast(t("SUCCESSFULLY_STARTED_MAILING"), {
             icon: "👏",
             style: {
               borderRadius: "10px",
@@ -171,18 +169,22 @@ const Panel = ({ bots, parsedGroups }) => {
           }
           extra={[
             <div>
-              <div>Bots:</div>
+              {/* <div>Bots: </div>
               <div>
-                {bots?.filter((b) => selectedBots.includes(b.name))?.map((b) => b.name)
+                {
+                  
+                
+                selectedBots?.map((b) => b.name)
                   .join(", ")}
               </div>
             </div>,
             <div>
-              <div>Groups:</div>
+              <div>Groups: </div>
               <div>
-                {parsedGroups?.filter((g) => selectedGroups.includes(g.name))?.map((g) => g.name)
+                {
+                selectedGroups?.map((g) => g.name)
                   .join(", ")}
-              </div>
+              </div> */}
             </div>,
           ]}
         />
