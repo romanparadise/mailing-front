@@ -7,7 +7,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Collapse } from 'antd';
 import structureImage from './structure.jpg'
-import e from "express";
 
 const { Panel } = Collapse;
 
