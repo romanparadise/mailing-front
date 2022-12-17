@@ -27,5 +27,6 @@
   "SUCCESSFULLY_STARTED_MAILING_DESCRIPTION": "Mailing started:",
   "SUCCESSFULLY_STARTED_MAILING": "Mailing successfully started",
   "NEXT": "Next",
-  "LAUNCH": "Launch"
+  "LAUNCH": "Launch",
+  "POINTS_PER_KM_HELP": "Enter the number of parsing requests per one kilometer. Bigger this number, more requests will be sent per one square kilometer. If you launch parsing in big cities, set amount to 7-10 points, for small cities and countryside 1-3 is enough. It means in every kilometer the script will generate this amount of geotags and then run parsing. With higher values amount of parsed users will be higher but parsing time will be increased and more bots will be banned."
 }

@@ -7,6 +7,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Collapse } from 'antd';
 import structureImage from './structure.jpg'
+import { compareAsc, format } from 'date-fns'
+import { Button } from "antd";
 
 const { Panel } = Collapse;
 
@@ -137,9 +139,9 @@ const BotsNProxies = () => {
       >
         <div
           className="text-center"
-          style={{ textAlign: "left", display: "flex", width: "100%" }}
+          style={{ textAlign: "left", width: "100%", marginBottom: '20px' }}
         >
-          <div style={{ color: "#fff", fontWeight: "light", width: "400px" }}>
+          <div style={{ color: "#333", fontWeight: "light", width: "400px" }}>
             {t("UPLOAD_BOTS")}
           </div>
           <input type="file" onChange={handleBotsChange} />
@@ -148,7 +150,7 @@ const BotsNProxies = () => {
           className="text-center"
           style={{ textAlign: "left", display: "flex", width: "100%" }}
         >
-          <div style={{ color: "#fff", fontWeight: "light", width: "400px" }}>
+          <div style={{ color: "#333", fontWeight: "light", width: "400px" }}>
             {t("UPLOAD_PROXIES")}
           </div>
           <input type="file" onChange={handleProxiesChange} />
@@ -163,7 +165,7 @@ const BotsNProxies = () => {
           />
         </div> */}
 
-        <button className="form-btn" type="submit">
+        <button style={{margin: '60px'}} className="ant-btn ant-btn-primary" type="submit">
           {t("UPLOAD")}
         </button>
       </form>

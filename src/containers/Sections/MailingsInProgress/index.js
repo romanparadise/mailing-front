@@ -9,14 +9,8 @@ import axios from "axios";
 import { useState } from "react";
 import {Segmented} from 'antd'
 import Charts from "./Charts";
-import { compareAsc, format } from 'date-fns'
-import Stats from "components/Stats"
-import { MdHeight } from "react-icons/md";
-import { Empty } from 'antd';
-
 
 const fetchProgress = async (t, id) => {
-  
   const { data } = await axios.get(
     `${process.env.REACT_APP_API_BASE_URL}/progress?mailing_id=${id}`
   );
@@ -56,7 +50,6 @@ const Mailings = ({ mailingsData }) => {
           }]} 
           />
       </div>
-      <Stats />
       <Charts />
     </div>
   } else {
@@ -74,7 +67,7 @@ const Mailings = ({ mailingsData }) => {
           }]} 
           />
       </div>
-      {mailingsData ? <Collapse>
+      <Collapse>
         {mailingsData?.map((item) => {
           return (
             <Panel header={item.name} key={item.id}>
@@ -102,8 +95,7 @@ const Mailings = ({ mailingsData }) => {
             </Panel>
           );
         })}
-      </Collapse> : <div style={{minHeight: '500px'}}><div style={{marginTop: '200px'}}><Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('NOTHING_TO_SHOW')} /></div>
-        </div>}
+      </Collapse>
     </div>
   );
       }

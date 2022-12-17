@@ -1,5 +1,14 @@
 .language-switch {
   position: absolute;
-  right: 30px;
-  top: 20px;
+  right: 0;
+  /* color: var(--text) !important */
+  margin: 0 3px;
+  vertical-align: center;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
+
+/* .language-switch * {
+  color: var(--text) !important
+} */

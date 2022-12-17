@@ -1,22 +1,23 @@
 import React from "react";
 import { useRef } from "react";
-import { sha512 } from "crypto-hash";
-import { Label, Input } from "@rebass/forms";
-import { Box, Button } from "rebass";
+import { Input } from 'antd'
+import { useTranslation } from "react-i18next";
 import "./styles.css";
 
 const PW = "gamble777";
+const {Search} = Input
 
-const ACCESS_LEVELS = {
-  usual: "",
-  admin: "",
-};
+// const ACCESS_LEVELS = {
+//   usual: "",
+//   admin: "",
+// };
 
 export default function PassPhrase({ verifyUser }) {
-  const passphraseInput = useRef(null);
-  const validatePhrase = () => {
+  const { t } = useTranslation();
+
+  const validatePhrase = (passphraseInput) => {
     if (
-      passphraseInput.current.value.toLowerCase().replaceAll(" ", "") === PW
+      passphraseInput.toLowerCase().replaceAll(" ", "") === PW
     ) {
       verifyUser();
     }
@@ -24,19 +25,14 @@ export default function PassPhrase({ verifyUser }) {
 
   return (
     <div className="passphrase-box">
-      <Box>
-        <Label htmlFor="passphrase">Codephrase?</Label>
-        <Input
-          ref={passphraseInput}
-          id="passphrase"
-          name="passphrase"
-          type="text"
-          placeholder=""
+        <Search
+          type="password"
+          placeholder={t("ENTER_PASSPHRASE")}
+          enterButton={t("ENTER")}
+          value="gamble777"
+          size="large"
+          onSearch={(pw) => validatePhrase(pw)}
         />
-        <Button onClick={validatePhrase} variant="secondary">
-           Войти
-        </Button>
-      </Box>
     </div>
   );
 }

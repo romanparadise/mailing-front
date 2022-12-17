@@ -13,21 +13,20 @@ code {
 }
 
 .form-btn {
-  color: #b0f;
-  border-color: #b0f;
-  text-shadow: none;
-  background: transparent;
-  border-radius: 2px;
-  border: solid 1px #b0f;
-  font-size: 14px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition-duration: 0.2s;
-  width: 300px;
-  margin: 10px auto;
-}
-
-.form-btn:hover {
   color: #fff;
-  background: #b0f;
+    border-color: #1890ff;
+    background: #1890ff;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    user-select: none;
+    touch-action: manipulation;
+    height: 32px;
+    padding: 4px 15px;
+    font-size: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.5715;
 }

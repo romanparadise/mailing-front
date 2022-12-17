@@ -4,25 +4,95 @@ function choice(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-const launchMailing = async ({
-  name,
-  max_messages=1000000,
+const launchInviting = async ({
+  group_name,
+  amount,
   bots_to_use,
   recipient_groups,
 }) => {
-  let url = `${process.env.REACT_APP_API_BASE_URL}/launchMailing?name=${name.toString().replaceAll(' ', '_')}&max_messages=${max_messages}`;
-  url += `&bots_to_use=${bots_to_use.join(',')}`
-  url += `&recipient_groups=${recipient_groups.join(',')}`
+  let url = `${process.env.REACT_APP_API_BASE_URL}/invite_goup`//?group_name=${group_name}`;
+  // url += `&bots_to_use=${bots_to_use.join(',')}`
+  //url += `&recipient_groups=${recipient_groups.join(',')}`
+  // if (amount) {
+  //   url += `&amount=${amount}`
+  // }
+
+
+  // url = encodeURI(url)
+
+  const bdy = JSON.stringify({
+    'recipient_groups': recipient_groups.join(','),
+    'bots_to_use': bots_to_use.join(','),
+    "group_name": group_name,
+    "amount": amount,
+  })
+
+  // if (amount) {
+  //   bdy.amount=amount
+  // }
 
   const options = {
     method: "POST",
+    redirect: 'follow',
+    mode: "no-cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: bdy
+  };
+
+  let data = null
+  console.log(url, options)
+
+  await fetch(url, options)
+    .then((response) => {
+      return response.json()
+    })
+    .then((res) => {
+      data = res
+    });
+
+  console.log('INVITING LAUNCHED', data)
+
+  return data;
+};
+
+const launchMailing = async ({
+  name,
+  max_messages=100000,
+  bots_to_use,
+  recipient_groups,
+  message,
+  links
+}) => {
+  let url = `${process.env.REACT_APP_API_BASE_URL}/launchMailing`//?name=${name.toString().replaceAll(' ', '_')}&max_messages=${max_messages}`;
+  // url += `&bots_to_use=${bots_to_use.join(',')}`
+  //url += `&recipient_groups=${recipient_groups.join(',')}`
+
+  // url = encodeURI(url)
+
+  const options = {
+    method: "POST",
+      redirect: 'follow',
+      mode: "no-cors",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
     },
+    body: JSON.stringify({
+      'recipient_groups': recipient_groups.join(','),
+      "bots_to_use": bots_to_use.join(','),
+      "max_messages": max_messages,
+      "name": name.toString().replaceAll(' ', '_'),
+      "variants": message,
+      "links": links
+    })
   };
 
   let data = null
+
+  console.log(url, options)
 
   await fetch(url, options)
     .then((response) => response.json())
@@ -35,22 +105,36 @@ const launchMailing = async ({
   return data;
 };
 
-const launchParsing = async ({ name, points=[], groups=[] }) => {
-  let url = `${process.env.REACT_APP_API_BASE_URL}/launchParsing?name=${name.toString().replaceAll(' ', '_')}`;
+const launchParsing = async ({ name, points=[], groups=[], circles='' }) => {
+  let url = `${process.env.REACT_APP_API_BASE_URL}/launchParsing`//?name=${name.toString().replaceAll(' ', '_')}`;
+  const bdy = {
+    name: name.toString().replaceAll(' ', '_'),
+  }
   if (groups.length > 0) {
-    url += `&groups4parse=${groups.join(',')}`
+    // url += `&groups4parse=${groups.join(',')}`
+    bdy.groups4parse = groups.join(',')
   }
   if (points.length > 0) {
     points = points.map(i => i.join(':'))
-    url += `&points=${points.join(',')}`
+    // url += `&points=${points.join(',')}`
+    bdy.points = points.join(',')
+  }
+  if (circles.length > 0) {
+    // url += '&circles=' + circles
+    bdy.circles = circles
   }
   const options = {
     method: "POST",
+    redirect: 'follow',
+    mode: "no-cors",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
     },
+    body: JSON.stringify(bdy)
   };
+
+  url = encodeURI(url)
 
   let data = null
 
@@ -60,7 +144,7 @@ const launchParsing = async ({ name, points=[], groups=[] }) => {
       data = res
     });
 
-    console.log('parsing started:', data)
+    // console.log('parsing started:', data)
 
     return data;
   };
@@ -133,14 +217,20 @@ const fetchParsedGroups = async () => {
   //   },
   // ];
 
-  console.log('frtched parsed groups', data?.groups)
+  // console.log('frtched parsed groups', data?.groups)
 
   return data?.groups || [];
 };
 
 const fetchMailings = async () => {
   const { data } = await axios.get(
-      `${process.env.REACT_APP_API_BASE_URL}/mailings`
+      `${process.env.REACT_APP_API_BASE_URL}/mailings`,
+      {
+        headers: {
+          redirect: 'follow',
+          mode: "no-cors",
+        }
+      }
   );
 
   // await new Promise((res, rej) => {
@@ -186,4 +276,5 @@ export {
   fetchBots,
   fetchParsedGroups,
   fetchMailings,
+  launchInviting
 };

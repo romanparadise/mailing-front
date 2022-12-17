@@ -13,6 +13,8 @@ import {
   fetchMailings,
 } from "requests";
 
+import { BiHelpCircle } from 'react-icons/bi'
+
 import { Toaster } from "react-hot-toast";
 
 import PassPhrase from "containers/PassPhrase";
@@ -28,6 +30,12 @@ import Links from "containers/Sections/Links";
 import Geo from "containers/Sections/Geo";
 import Launch from "containers/Sections/Launch";
 import Mailings from "containers/Sections/Mailings";
+import MailingsInProgress from 'containers/Sections/MailingsInProgress'
+import Invites from 'containers/Sections/Invites'
+import Help from 'containers/Sections/Help'
+
+import Menu from "components/Menu"
+import Header from "components/Header";
 
 import "localization";
 import "./App.css";
@@ -83,107 +91,91 @@ function App() {
 
   const SECTIONS = [
     {
-      name: "UPLOAD_SECTION",
-      component: <BotsNProxies />,
-      description: t("UPLOAD_SECTION_DESCRIPTION"),
+      name: "MENU_MAILINGS_ENDED",
+      component: <Mailings />,
+      description: t("MAILINGS_ENDED_DESCRIPTION"),
     },
     {
-      name: "LINK_PICKER_SECTION",
-      component: <Links />,
-      description: t("LINK_PICKER_SECTION_DESCRIPTION"),
+      name: "MENU_MAILINGS_IN_PROGRESS",
+      component: <MailingsInProgress />,
+      description: t("MENU_MAILINGS_IN_PROGRESS_SECTION_DESCRIPTION"),
     },
     {
-      name: "LOCATION_PICKER_SECTION",
+      name: "MENU_MAILINGS_NEW",
+      component: <Launch 
+        bots={botsData}
+        parsedGroups={parsingData}
+      />,
+      description: t("MENU_MAILINGS_NEW_SECTION_DESCRIPTION"),
+    },
+    {
+      name: "MENU_PARSING_GEO",
       component: <Geo />,
       description: t("LOCATION_PICKER_SECTION_DESCRIPTION"),
     },
     {
-      name: "LAUNCH_PANEL_SECTION",
-      component: (
-        <Launch
-          bots={botsData}
-          parsedGroups={parsingData}
-          proxiesAmount={1000}
-        />
-      ),
-      description: t("LAUNCH_SECTION_DESCRIPTION"),
+      name: "MENU_PARSING_GROUP",
+      component: <Links />,
+      description: t("MENU_PARSING_GROUP_SECTION_DESCRIPTION"),
     },
     {
-      name: "MAILINGS_SECTION",
-      component: <Mailings mailingsData={mailingsData} />,
-      description: t("MAILINGS_SECTION_DESCRIPTION"),
+      name: "MENU_BOTS_UPLOAD",
+      component: <BotsNProxies />,
+      description: t("MENU_BOTS_UPLOAD_SECTION_DESCRIPTION"),
+    },
+    {
+      name: "MENU_BOTS_REGISTER",
+      component: <div>In Development</div>,
+      description: t("MENU_BOTS_REGISTER_SECTION_DESCRIPTION"),
+    },
+    {
+      name: "MENU_INVITES",
+      component: <Invites 
+        bots={botsData}
+        parsedGroups={parsingData}
+      />,
+      description: t("MENU_INVITES_SECTION_DESCRIPTION"),
+    },
+    {
+      name: "MENU_GUIDE",
+      component: <Help />,
+      description: t("MENU_GUIDE_SECTION_DESCRIPTION"),
     },
   ];
 
-  const [section, setSection] = useState(0);
-
-  if (!userIsVerified) {
-    return <PassPhrase verifyUser={() => setUserIsVerified(true)} />;
-  }
+  const [section, setSection] = useState('MENU_MAILINGS_ENDED');
 
   return (
     <div className="App">
-      <LanguageSwitch />
-      <div
-        style={{
-          width: "700px",
-          position: "fixed",
-          left: "50%",
-          transform: "translate(-50%)",
-          margin: "10px",
-          textAlign: "center",
-        }}
-      >
-        <Segmented
-          value={SECTIONS[section].name}
-          onChange={(m) => setSection(SECTIONS.findIndex((i) => i.name === m))}
-          size={"large"}
-          block
-          options={SECTIONS.map((o) =>
-            Object({ label: t(o.name), value: o.name })
-          )}
-        />
-      </div>
+      <Header contents ={userIsVerified ? t(section) : t('ENTER_PASSPHRASE')}/>
+      {
+        (!userIsVerified) ?
+          <PassPhrase verifyUser={() => setUserIsVerified(true)} />
+          : <div className="main-container">
+              <div className="container">
+                <Menu 
+                  onChange={setSection}
+                />
+              </div>
+              <div className="container">
+                <div className="contents">
+                    <div style={{position: 'relative'}} className="description-block white-wrapper">
+                    <div style={{position: 'absolute', right: 0, top: 0, margin: '10px', opacity: '0.6', fontSize: '15pt'}}>
+                      <BiHelpCircle />
+                    </div>
+                    <div style={{textAlign: 'center', opacity: 1, fontWeight: 500}}>{t("INFO")}</div>
+                    {SECTIONS.find(i => i.name===section)?.description}
+                      </div>
+                  <div className="white-wrapper">
+                  
+                  {SECTIONS.find(i => i.name===section)?.component}
+                  </div>
+                </div>
+              </div>
+            </div>
+      }
 
-      <div className="container">
-        <div className="contents">
-          <div
-            style={{
-              width: "800px",
-              margin: "0 auto",
-              color: "#999",
-              fontSize: "14pt",
-            }}
-          >
-            {SECTIONS[section]?.description}
-          </div>
-          {SECTIONS[section].component}
-        </div>
-      </div>
-
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: "50%",
-          transform: "translate(-50%)",
-          margin: "0",
-        }}
-      >
-        {section !== SECTIONS.length - 1 ? (
-          <Button
-            onClick={() =>
-              setSection((m) => Math.min(m + 1, SECTIONS.length - 1))
-            }
-            type={section === SECTIONS.length - 1 ? "danger" : "primary"}
-            ghost
-          >
-            {t("NEXT")}
-          </Button>
-        ) : null}
-      </div>
-
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="bottom-center" reverseOrder={false} />
     </div>
   );
 }

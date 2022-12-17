@@ -1,7 +1,16 @@
-.leaflet-top.leaflet-right {
+/* .leaflet-top.leaflet-right {
   display: none;
 }
 
 .flex-container.flex-wrap.some-margin {
   min-height: 30px;
+  display: none;
+} */
+
+.leaflet-interactive {
+  stroke-width: 1px;
+}
+
+.map-tag {
+  display: none;
 }

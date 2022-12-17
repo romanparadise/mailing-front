@@ -6,6 +6,8 @@ import { Button, Input } from "antd";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import { launchParsing } from "requests";
+import { compareAsc, format } from 'date-fns'
+
 
 const Links = () => {
   const { t } = useTranslation();
@@ -14,7 +16,8 @@ const Links = () => {
 
   const [links, setLinks] = useState([]);
   const [parsingName, setParsingName] = useState(
-    Math.round(Math.random()*1000000).toString()//"Groups parsing - " + Date().toString().split("GMT")[0]
+    "groups_" + format(new Date(), 'dd.MM_HH:mm')
+
   );
 
   const addLink = (link) =>
@@ -27,7 +30,7 @@ const Links = () => {
 
   const sendParsingRequest = async () => {
     setHasStarted(true);
-    if (links.length === 0) {
+    if (links?.length === 0) {
       toast.error(t("LINKS_LIST_IS_EMPTY"));
       setHasStarted(false);
       return;
@@ -79,11 +82,6 @@ const Links = () => {
         flexDirection: "row",
       }}
     >
-      {/* <Input
-        style={{ width: "100%" }}
-        value={parsingName}
-        onChange={(e) => setParsingName(e.target.value)}
-      /> */}
       <div style={{margin: '0 auto'}}>
         <Button disabled={hasStarted} onClick={sendParsingRequest} type="primary">
           {t("PARSE")}
@@ -96,11 +94,32 @@ const Links = () => {
     <div
       style={{ display: "flex", flexDirection: "column", textAlign: "center" }}
     >
-      {launchControls}
-      <div style={{ marginTop: "30px", fontSize: "15pt" }}>
-        {t("FOLLOWING_GROUPS_WILL_BE_PARSED")}
+      <div style={{margin: '-10px 0 0 -50px', width: 'fit-content', borderBottom: '1px solid #eee', width: 'calc(100% + 100px)'}}>
+          <div style={{ width: 'fit-content', margin: 'auto'}}>
+            <div style={{display: 'flex', fontSize: '12pt'}}>
+              <div style={{margin: '10px'}}>{t("ENTER_NAME_TO_SAVE")}</div>
+              <div style={{width: '200px', margin: '10px'}}><Input
+                style={{ width: "100%" }}
+                value={parsingName}
+                onChange={(e) => setParsingName(e.target.value)}
+                size='small'
+              /></div>
+            </div>
+          </div>
+        </div>
+      <div style={{ width: "500px", margin: "20px auto" }}>
+        <Input
+          addonBefore="t.me/"
+          onPressEnter={(e) => {
+            addLink(e.target.value);
+          }}
+          placeholder={t("TYPE_AND_PRESS_ENTER_TO_ADD")}
+        />
       </div>
-      <div style={{ fontSize: "15pt", fontWeight: "200" }}>
+      <div style={{ marginTop: "-30px", marginBottom: '10px', fontSize: "15pt", opacity: 0.5 }}>
+        {links?.length ? t("FOLLOWING_GROUPS_WILL_BE_PARSED") : t("TYPE_LINKS_IN_FIELD_ABOVE")}
+      </div>
+      <div style={{ fontSize: "15pt", fontWeight: "300", opacity: 0.95 }}>
         {links.map((link) => {
           return (
             <div key={link}>
@@ -120,15 +139,8 @@ const Links = () => {
           );
         })}
       </div>
-      <div style={{ width: "500px", margin: "0 auto" }}>
-        <Input
-          addonBefore="t.me/"
-          onPressEnter={(e) => {
-            addLink(e.target.value);
-          }}
-          placeholder={t("TYPE_AND_PRESS_ENTER_TO_ADD")}
-        />
-      </div>
+      
+      {launchControls}
     </div>
   );
 };
