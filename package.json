@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@parvineyvazov/json-translator": "^1.4.0",
     "@rebass/forms": "^4.0.6",
     "@tanstack/react-query": "^4.12.0",
     "@testing-library/jest-dom": "^5.16.5",

@@ -72,6 +72,8 @@ const launchMailing = async ({
 
   // url = encodeURI(url)
 
+  console.log('mesaggge', message)
+
   const options = {
     method: "POST",
       redirect: 'follow',
@@ -85,8 +87,10 @@ const launchMailing = async ({
       "bots_to_use": bots_to_use.join(','),
       "max_messages": max_messages,
       "name": name.toString().replaceAll(' ', '_'),
-      "variants": message,
-      "links": links
+      message: {
+        "variants": message,
+        "links": links
+      }
     })
   };
 
@@ -138,8 +142,14 @@ const launchParsing = async ({ name, points=[], groups=[], circles='' }) => {
 
   let data = null
 
+  console.log(666,url, options)
+
   await fetch(url, options)
-    .then((response) => response.json())
+    .then((response) => {
+      console.log('666parsing response is', response)
+      response.json()
+    }
+      )
     .then((res) => {
       data = res
     });

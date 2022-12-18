@@ -85,9 +85,11 @@ const mock = [
   
 
 const Mailings = ({ mailingsData, bots }) => {
-  mailingsData = mock
+  // mailingsData = mock
 
   // mailingsData = mailingsData.filter(i => !i.status) 
+
+  console.log(mailingsData)
 
   const { t } = useTranslation();
 
@@ -99,7 +101,7 @@ const Mailings = ({ mailingsData, bots }) => {
 
   const messagesSent = mailingsData.map(i=>i.amount_sent).reduce((a,b)=>a+b, 0)
   const botsAlive = bots?.map((b) => b.amount).reduce((p, c) => p + c, 0)
-  const botsDied = mailingsData.map(i=>i.botsDied).reduce((a,b)=>a+b)
+  const botsDied = mailingsData.map(i=>i.botsDied).reduce((a,b)=>a+b, 0)
   const botsInWork = bots.filter(i => i.occupied).map(i => i.amount).reduce((p, c) => p + c, 0)
 
   if (statsMode == 'STATS') {
@@ -118,7 +120,7 @@ const Mailings = ({ mailingsData, bots }) => {
       <Stats 
           botsAlive={botsAlive}
           messagesSent={messagesSent}
-          messageCost={botsDied*BOT_COST/messagesSent}
+          messageCost={messagesSent ? botsDied*BOT_COST/messagesSent : null}
           botsDied={botsDied}
           botsInWork={botsInWork}
       />
@@ -144,7 +146,7 @@ const Mailings = ({ mailingsData, bots }) => {
       {(mailingsData && mailingsData.length) ? (<Collapse>
         {mailingsData?.map((item) => {
           return (
-            <Panel header={<div style={{textAlign: 'left'}}>{item.name}{item.status && <div style={{float: 'right',color: '#1890ff'}}>{t('IN_PROGRESS')}<div style={{marginLeft: '10px', display: 'inline-block'}}><Spin /> </div></div>}</div>} key={item.id}>
+            <Panel header={<div style={{textAlign: 'left'}}>{item.name || t('GROUP_INVITING')}{item.status && <div style={{float: 'right',color: '#1890ff'}}>{t('IN_PROGRESS')}<div style={{marginLeft: '10px', display: 'inline-block'}}><Spin /> </div></div>}</div>} key={item.id}>
               <div style={{textAlign: 'left', display: 'flex', width: '100%', borderBottom: '1px solid #ddd'}}>
                 <div style={{width: '50%'}}>{t("BOTS_GROUP_USED")}</div>
                 <div style={{width: '50%'}}>{item.bots}</div>

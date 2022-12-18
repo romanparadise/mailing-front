@@ -64,7 +64,7 @@ const Links = () => {
     } else {
       console.log('parsing error: ', res)
       toast.error(
-        `${t("COULD_NOT_RUN_PARSING")}: ${res?.message || res?.detail?.msg || res.error || "Something went wrong"}`
+        `${t("COULD_NOT_RUN_PARSING")}: ${res?.message || res?.detail?.msg || res?.error || "Something went wrong"}`
       );
     }
 

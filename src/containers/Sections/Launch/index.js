@@ -101,14 +101,17 @@ const Panel = ({ bots, parsedGroups }) => {
     //   }
     // }
 
+    const linksArg = []
+    Object.keys(links).sort().forEach(k => linksArg.push(links[k]))
+
     setHasStarted(true);
     launchMailing({
       name: mailingName,
       max_messages: maxAmount,
       bots_to_use: selectedBots,
       recipient_groups: selectedGroups,
-      message: message.message,
-      links: links
+      message: message,
+      links: linksArg
     })
       .then((res) => {
         if (res?.message?.toLowerCase().includes("succes")) {

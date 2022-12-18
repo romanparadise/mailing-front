@@ -121,7 +121,7 @@ const Charts = ({ mailingsData }) => {
   };
 
   const barChart = <div>
-    <div style={{marginTop: '50px'}}>{t('EFFECTIVENESS')}</div>
+    <div style={{marginTop: '20px'}}>{t('EFFECTIVENESS')}</div>
     <div style={{opacity: 0.5, fontSize: '12pt', textAlign: "justify",
     textJustify: "inter-word"}}>{t('EFFECTIVENESS_DESCRIPTION')}</div>
     <Bar options={options} data={data} />
