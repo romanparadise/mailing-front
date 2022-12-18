@@ -9,7 +9,7 @@ const App = ({
   messagesSent,
   messageCost,
   botsDied,
-  botsInWork
+  botsInWork,botsDiedInMailings
 }) => {
   const {t} = useTranslation()
 
@@ -38,7 +38,7 @@ const App = ({
           <Statistic
             title={t('MESSAGE_COST')}
             value={messageCost ?? t('NO_DATA')}
-            precision={2}
+            precision={3}
             valueStyle={{ color: '#3f8600' }}
             suffix={t('$')}
           />
@@ -57,8 +57,8 @@ const App = ({
         <Card>
           <Statistic
             title={t('MESSAGES_PER_BOT')}
-            value={(botsAlive && botsDied && messagesSent) ? (messagesSent+0.000001) / (botsAlive+botsDied) : t('NO_DATA')}
-            precision={2}
+            value={(botsAlive && botsDied && messagesSent) ? (messagesSent) / (botsDiedInMailings+1) : t('NO_DATA')}
+            precision={1}
             valueStyle={{ color: '#cf1322' }}
             // suffix={t('%')}
           />

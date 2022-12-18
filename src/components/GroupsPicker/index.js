@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 
-const F = ({bots, parsedGroups, setSelectedBots, setSelectedGroups}) => {
+const F = ({bots, parsedGroups, selectedBots, selectedGroups, setSelectedBots, setSelectedGroups}) => {
   //   bots = [{
   //     name: 'bots1',
   //     occupied: true,
@@ -67,9 +67,7 @@ const F = ({bots, parsedGroups, setSelectedBots, setSelectedGroups}) => {
 
       return reducedParsedGroups
 
-    }, [parsedGroups.map(p => p.id).join(' ')])
-
-    
+    }, [parsedGroups?.map(p => p.id).join(' ')])
 
     return (
         <div
@@ -90,6 +88,7 @@ const F = ({bots, parsedGroups, setSelectedBots, setSelectedGroups}) => {
                 marginBottom: '5px'
                 }}>{t("SELECT_BOTS")}</div>
             <Checkbox.Group
+            value={selectedBots}
               options={bots?.map((botGroup) => {
                 return {
                   label: <div style={{margin: '1px'}}><span>{botGroup.name}</span> <span className="amount" style={{color: '#1890ff'}}>{botGroup.amount}</span></div>,
@@ -111,6 +110,7 @@ const F = ({bots, parsedGroups, setSelectedBots, setSelectedGroups}) => {
                 }}>{t("SELECT_PARSED_BATCHES")}</div>
 
             <Checkbox.Group
+            value={Array.from(new Set(selectedGroups?.map(g => g.split(' ')[1])))}
               options={parsedData?.map((g) => {
                 return {
                   label: (

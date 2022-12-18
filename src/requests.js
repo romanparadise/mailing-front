@@ -34,7 +34,7 @@ const launchInviting = async ({
   const options = {
     method: "POST",
     redirect: 'follow',
-    mode: "no-cors",
+    mode: "cors",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const launchMailing = async ({
   const options = {
     method: "POST",
       redirect: 'follow',
-      mode: "no-cors",
+      mode: "cors",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
@@ -130,7 +130,7 @@ const launchParsing = async ({ name, points=[], groups=[], circles='' }) => {
   const options = {
     method: "POST",
     redirect: 'follow',
-    mode: "no-cors",
+    mode: "cors",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
@@ -147,14 +147,14 @@ const launchParsing = async ({ name, points=[], groups=[], circles='' }) => {
   await fetch(url, options)
     .then((response) => {
       console.log('666parsing response is', response)
-      response.json()
+      return response.json()
     }
       )
     .then((res) => {
       data = res
     });
 
-    // console.log('parsing started:', data)
+    console.log('parsing started:', data)
 
     return data;
   };
@@ -238,7 +238,7 @@ const fetchMailings = async () => {
       {
         headers: {
           redirect: 'follow',
-          mode: "no-cors",
+          mode: "cors",
         }
       }
   );

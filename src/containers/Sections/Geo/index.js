@@ -63,6 +63,7 @@ const Geo = () => {
         circles: circles
       });
     } catch(e) {
+      console.log(1)
       toast.error(
         `${t("COULD_NOT_RUN_PARSING")}: ${e}`
       );
@@ -70,7 +71,8 @@ const Geo = () => {
       return
     }
 
-    if (res && !res?.error) {
+    if (res) {
+      console.log(2)
       setPointsOnMap([]);
       toast(t("PARSING_STARTED"), {
         icon: "👏",
@@ -81,6 +83,7 @@ const Geo = () => {
         },
       });
     } else {
+      console.log(3)
       console.log('error: ', res)
       toast.error(
         `${t("COULD_NOT_RUN_PARSING")}: ${res?.message || res?.detail?.msg || res?.error || "Something went wrong"}`

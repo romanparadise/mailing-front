@@ -25,7 +25,7 @@ const default_message = {
     "Привет\n", "Здравствуй\n", "Добрый вечер\n"
   ],
   [
-    "Вступай в группу {links1}"
+    "Вступай в группу {}"
   ]
 ]
 }
@@ -47,11 +47,11 @@ const random_choice = (arr) => {
 const buildMessage = (msg, links, t) => {
   let result = ""
   try {
-    msg.forEach(part => {
+    msg?.forEach(part => {
       let choice = random_choice(part)
 
-      Array.from(Object.keys(links)).forEach(l => {
-        choice = choice.replace('{'+l+'}', random_choice(links[l]) || `<span style="color: red;">${t('NO_LINKS')}</span>`)
+      Array.from(Object.keys(links))?.forEach(l => {
+        choice = choice.replace('{}', random_choice(links[l]) || `<span style="color: red;">${t('NO_LINKS')}</span>`)
       })
 
       choice = choice.replace("<br />", "");
@@ -102,7 +102,7 @@ const Panel = ({ bots, parsedGroups }) => {
     // }
 
     const linksArg = []
-    Object.keys(links).sort().forEach(k => linksArg.push(links[k]))
+    Object.keys(links).sort()?.forEach(k => linksArg.push(links[k]))
 
     setHasStarted(true);
     launchMailing({
@@ -222,12 +222,12 @@ const Panel = ({ bots, parsedGroups }) => {
   if (!hasSent)
     return (
       <>
-        <div onClick={async () => {
+        {/* <div onClick={async () => {
           let url = `${process.env.REACT_APP_API_BASE_URL}/check_cors`
           const options = {
               method: "POST",
                 redirect: 'follow',
-                mode: "no-cors",
+                mode: "cors",
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
@@ -244,7 +244,7 @@ const Panel = ({ bots, parsedGroups }) => {
             })
         }} style={{width: '300px', background: "red", height: '50px'}}>
             CHECK CORS
-        </div>
+        </div> */}
 
 
 
@@ -317,6 +317,8 @@ const Panel = ({ bots, parsedGroups }) => {
            parsedGroups={parsedGroups}
            setSelectedBots={setSelectedBots}
            setSelectedGroups={setSelectedGroups}
+           selectedBots={selectedBots}
+           selectedGroups={selectedGroups}
 
         />
         
@@ -328,6 +330,7 @@ const Panel = ({ bots, parsedGroups }) => {
     return (
       <>
         <Result
+          style={{color: '#777'}}
           status="success"
           title={t("SUCCESSFULLY_STARTED_MAILING")}
           subTitle={

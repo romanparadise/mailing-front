@@ -86,12 +86,12 @@ const Charts = ({ mailingsData }) => {
     datasets: [
       {
         label: t('BOTS_DIED'),
-        data: mailingsData?.map((i) => i.botsDied),
+        data: mailingsData?.map((i) => i.bots_died),
         backgroundColor: 'rgb(255, 99, 132)',
       },
       {
         label: t('BOTS_USED'),
-        data: mailingsData?.map((i) => i.botsAlived + i.botsDied),
+        data: mailingsData?.map((i) => i.bots_alived + i.bots_died),
         backgroundColor: 'rgb(75, 192, 192)',
       },
       {

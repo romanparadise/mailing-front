@@ -15,7 +15,7 @@ import { MdHeight } from "react-icons/md";
 import { Empty } from 'antd';
 import { Spin } from 'antd';
 
-const BOT_COST = 0.25
+const BOT_COST = 0.15
 
 const fetchProgress = async (t, id) => {
   
@@ -84,12 +84,14 @@ const mock = [
   ]
   
 
-const Mailings = ({ mailingsData, bots }) => {
+const Mailings = ({ mailingsData=[], bots=[] }) => {
   // mailingsData = mock
 
   // mailingsData = mailingsData.filter(i => !i.status) 
 
   console.log(mailingsData)
+
+
 
   const { t } = useTranslation();
 
@@ -99,10 +101,11 @@ const Mailings = ({ mailingsData, bots }) => {
     window.open(`https://elpedroche.ru/logs?mailing_id=${id}`, '_blank')
   };
 
-  const messagesSent = mailingsData.map(i=>i.amount_sent).reduce((a,b)=>a+b, 0)
+  const messagesSent = mailingsData?.filter(i=>i.name).map(i=>i.amount_sent).reduce((a,b)=>a+b, 0)
   const botsAlive = bots?.map((b) => b.amount).reduce((p, c) => p + c, 0)
-  const botsDied = mailingsData.map(i=>i.botsDied).reduce((a,b)=>a+b, 0)
-  const botsInWork = bots.filter(i => i.occupied).map(i => i.amount).reduce((p, c) => p + c, 0)
+  const botsDied = mailingsData?.map(i=>i.bots_died).reduce((a,b)=>a+b, 0)
+  const botsInWork = bots?.filter(i => i.occupied)?.map(i => i.amount).reduce((p, c) => p + c, 0)
+  const botsDiedInMailings = mailingsData?.filter(i=>i.name).map(i=>i.bots_died).reduce((a,b)=>a+b, 0)
 
   if (statsMode == 'STATS') {
     return <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}>
@@ -120,12 +123,13 @@ const Mailings = ({ mailingsData, bots }) => {
       <Stats 
           botsAlive={botsAlive}
           messagesSent={messagesSent}
-          messageCost={messagesSent ? botsDied*BOT_COST/messagesSent : null}
+          messageCost={messagesSent ? botsDiedInMailings*BOT_COST/messagesSent : null}
           botsDied={botsDied}
           botsInWork={botsInWork}
+          botsDiedInMailings={botsDiedInMailings}
       />
       <Charts 
-      mailingsData={mailingsData}
+        mailingsData={mailingsData.filter(i=>i.name)}
       />
     </div>
   } else {
@@ -153,16 +157,25 @@ const Mailings = ({ mailingsData, bots }) => {
               </div>
               <div style={{textAlign: 'left', display: 'flex', width: '100%', borderBottom: '1px solid #ddd'}}>
                 <div style={{width: '50%'}}>{t("RECIPIENTS")}</div>
-                <div style={{width: '50%'}}>{new Set(item.parseds.map(i=>i.split(' ')[1]))}</div>
+                <div style={{width: '50%'}}>{new Set(item.parseds?.map(i=>i.split(' ')[1]))}</div>
               </div>
               <div style={{textAlign: 'left', display: 'flex', width: '100%', borderBottom: '1px solid #ddd'}}>
                 <div style={{width: '50%'}}>{t("STARTED_AT")}</div>
                 <div style={{width: '50%'}}>{new Date(item.started_at * 1000).toLocaleString()}</div>
               </div>
+              <div style={{textAlign: 'left', display: 'flex', width: '100%', borderBottom: '1px solid #ddd' }}>
+                <div style={{width: '50%'}}>{t("BOTS_SURVIVED")}</div>
+                <div style={{color: 'green', width: '50%'}}>{item.bots_alived}</div>
+              </div>
+              <div style={{textAlign: 'left', display: 'flex', width: '100%', borderBottom: '1px solid #ddd' }}>
+                <div style={{width: '50%'}}>{t("BOTS_DIED")}</div>
+                <div style={{color: 'red', width: '50%'}}>{item.bots_died}</div>
+              </div>
               <div style={{textAlign: 'left', display: 'flex', width: '100%', }}>
                 <div style={{width: '50%'}}>{t("AMOUNT_SENT")}</div>
                 <div style={{color: '#1890ff', width: '50%'}}>{item.amount_sent}</div>
               </div>
+              
               {
                 <div style={{width: 'fit-content', margin: "10px auto",display:'flex', marginTop: '10px'}}>
                   <Button

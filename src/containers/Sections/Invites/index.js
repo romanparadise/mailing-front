@@ -49,14 +49,14 @@ const Links = ({ bots, parsedGroups }) => {
       console.log('inviting res is', res)
     } catch(e) {
       toast.error(
-        `${t("COULD_NOT_RUN_PARSING")}: ${e}`
+        `${t("COULD_NOT_RUN")}: ${e}`
       );
       setHasStarted(false);
       return
     }
     
     if (res && !res.detail && !res.error) {
-      toast(t("PARSING_STARTED"), {
+      toast(t("STARTED"), {
         icon: "👏",
         style: {
           borderRadius: "10px",
@@ -67,7 +67,7 @@ const Links = ({ bots, parsedGroups }) => {
     } else {
       console.log('parsing error: ', res)
       toast.error(
-        `${t("COULD_NOT_RUN_PARSING")}: ${res?.message || res?.detail?.msg || res?.detail || res?.error || "Something went wrong"}`
+        `${t("COULD_NOT_RUN")}: ${res?.message || res?.detail?.msg || res?.detail || res?.error || "Something went wrong"}`
       );
     }
 
@@ -133,6 +133,8 @@ const Links = ({ bots, parsedGroups }) => {
         parsedGroups={parsedGroups}
         setSelectedBots={setSelectedBots}
         setSelectedGroups={setSelectedGroups}
+        selectedBots={selectedBots}
+           selectedGroups={selectedGroups}
       />
       {launchControls}
     </div>

@@ -230,11 +230,11 @@ input[type="file"] {
 }
 
 .ant-result.ant-result-success * {
-  color: #fff !important;
+  color: #777 !important;
 }
 
 .ant-result-icon span.anticon.anticon-check-circle * {
-  color: var(--accent) !important;
+  color: #1890ff !important;
 }
 
 .ant-input-number {
