@@ -22,57 +22,16 @@ ChartJS.register(
   Title,
 );
 
-const Charts = ({ mailingsData=[
-  {
-    name: 'some name',
-    id: 123123123,
-    sentAmount: 123,
-    botsAlive: 111,
-    botsDied: 333,
-    targetGroups: ['asdasdsa', 'asdsadasdss'],
-  },
-  {
-    name: 'some name211',
-    id: 2222222,
-    sentAmount: 1203,
-    botsAlive: 122,
-    botsDied: 999,
-    targetGroups: ['asdsadasdss'],
-  },
-  {
-    name: 'some name2',
-    id: 4444,
-    sentAmount: 1203,
-    botsAlive: 122,
-    botsDied: 999,
-    targetGroups: ['asdsadasdss'],
-  },
-  {
-    name: 'some name22',
-    id: 213123,
-    sentAmount: 1111,
-    botsAlive: 1111,
-    botsDied: 111,
-    targetGroups: ['asdsadasdss'],
-  },
-  {
-    name: 'some name2222',
-    id: 333333,
-    sentAmount: 1203,
-    botsAlive: 122,
-    botsDied: 999,
-    targetGroups: ['asdsadasdss'],
-  }
-] }) => {
+const Charts = ({ mailingsData }) => {
 
   const { t } = useTranslation()
 
-  const dataLabels = mailingsData.map(i => {
+  const dataLabels = mailingsData?.map(i => {
     return i.name
   })
 
-  const dataSent = mailingsData.map(i => {
-    return i.sentAmount
+  const dataSent = mailingsData?.map(i => {
+    return i.amount_sent
   })
 
   // mailingsData.map(i => {
@@ -120,24 +79,24 @@ const Charts = ({ mailingsData=[
     />  
   </div>
 
-  const labels = mailingsData.map(i => i.name)
+  const labels = mailingsData?.map(i => i.name)
 
   const data = {
     labels,
     datasets: [
       {
         label: t('BOTS_DIED'),
-        data: mailingsData.map((i) => i.botsDied),
+        data: mailingsData?.map((i) => i.botsDied),
         backgroundColor: 'rgb(255, 99, 132)',
       },
       {
         label: t('BOTS_USED'),
-        data: mailingsData.map((i) => i.botsAlive + i.botsDied),
+        data: mailingsData?.map((i) => i.botsAlived + i.botsDied),
         backgroundColor: 'rgb(75, 192, 192)',
       },
       {
         label: t('MESSAGES_SENT'),
-        data: mailingsData.map((i) => i.sentAmount),
+        data: mailingsData?.map((i) => i.amount_sent),
         backgroundColor: 'rgb(53, 162, 235)',
       },
     ],
@@ -171,7 +130,7 @@ const Charts = ({ mailingsData=[
 
   return (
       <div className="charts-container">
-        <div style={{margin: 'auto', width: 'fit-content'}}>
+        {/* <div style={{margin: 'auto', width: 'fit-content'}}>
           <div style={{display: 'flex', width: 'fit-content'}}>
             <div>
               <div>{t('SENT_MESSAGES_TO_GROUPS')}</div>
@@ -179,10 +138,12 @@ const Charts = ({ mailingsData=[
             </div>
             <div>
               <div>{t('SENT_MESSAGES_BY_BOT_GROUPS')}</div>
-              <div><ExtraChart /></div>
+              <div><ExtraChart 
+                mailingsData={mailingsData}
+              /></div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div style={{margin: 'auto'}}>
         {barChart}
         </div>

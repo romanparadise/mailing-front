@@ -4,7 +4,13 @@ import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Statistic } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-const App = () => {
+const App = ({
+  botsAlive,
+  messagesSent,
+  messageCost,
+  botsDied,
+  botsInWork
+}) => {
   const {t} = useTranslation()
 
   return <div className="site-statistic-demo-card">
@@ -13,7 +19,7 @@ const App = () => {
         <Card>
           <Statistic
             title={t('BOTS_ALIVE')}
-            value={1128}
+            value={botsAlive ?? t('NO_DATA')}
             valueStyle={{ color: '#3f8600' }}
           />
         </Card>
@@ -22,7 +28,7 @@ const App = () => {
         <Card>
           <Statistic
             title={t('MESSAGES_SENT')}
-            value={1003}
+            value={messagesSent ?? t('NO_DATA')}
             valueStyle={{ color: '#3f8600' }}
           />
         </Card>
@@ -31,7 +37,7 @@ const App = () => {
         <Card>
           <Statistic
             title={t('MESSAGE_COST')}
-            value={0.01}
+            value={messageCost ?? t('NO_DATA')}
             precision={2}
             valueStyle={{ color: '#3f8600' }}
             suffix={t('$')}
@@ -42,7 +48,7 @@ const App = () => {
         <Card>
           <Statistic
             title={t('BOTS_DIED')}
-            value={93}
+            value={botsDied ?? t('NO_DATA')}
             valueStyle={{ color: '#cf1322' }}
           />
         </Card>
@@ -50,22 +56,22 @@ const App = () => {
       <Col span={8}>
         <Card>
           <Statistic
-            title={t('SURVIVAL_RATE')}
-            value={9.3}
+            title={t('MESSAGES_PER_BOT')}
+            value={(botsAlive && botsDied && messagesSent) ? (messagesSent+0.000001) / (botsAlive+botsDied) : t('NO_DATA')}
             precision={2}
             valueStyle={{ color: '#cf1322' }}
-            suffix={t('%')}
+            // suffix={t('%')}
           />
         </Card>
       </Col>
       <Col span={8}>
         <Card>
           <Statistic
-            title={t('BOTS_IN_WORK')}
-            value={9.3}
-            precision={2}
+            title={t('BOTS_IN_WORK') }
+            value={botsInWork  ?? t('NO_DATA')}
+            precision={0}
             valueStyle={{ color: '#cf1322' }}
-            suffix="%"
+            // suffix="%"
           />
         </Card>
       </Col>

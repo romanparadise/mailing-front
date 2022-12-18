@@ -89,17 +89,21 @@ function App() {
 
   const { t } = useTranslation();
 
+
   const SECTIONS = [
     {
-      name: "MENU_MAILINGS_ENDED",
-      component: <Mailings />,
+      name: "MENU_MAILINGS",
+      component: <Mailings 
+        mailingsData={mailingsData}
+        bots={botsData}
+      />,
       description: t("MAILINGS_ENDED_DESCRIPTION"),
     },
-    {
-      name: "MENU_MAILINGS_IN_PROGRESS",
-      component: <MailingsInProgress />,
-      description: t("MENU_MAILINGS_IN_PROGRESS_SECTION_DESCRIPTION"),
-    },
+    // {
+    //   name: "MENU_MAILINGS_IN_PROGRESS",
+    //   component: <MailingsInProgress />,
+    //   description: t("MENU_MAILINGS_IN_PROGRESS_SECTION_DESCRIPTION"),
+    // },
     {
       name: "MENU_MAILINGS_NEW",
       component: <Launch 
@@ -143,7 +147,7 @@ function App() {
     },
   ];
 
-  const [section, setSection] = useState('MENU_MAILINGS_ENDED');
+  const [section, setSection] = useState('MENU_MAILINGS');
 
   return (
     <div className="App">

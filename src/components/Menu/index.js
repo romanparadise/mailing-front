@@ -34,8 +34,8 @@ const MainMenu = ({onChange}) => {
 
 	const items = [
 		getItem(t('MENU_DASHBOARD'), 'MENU_DASHBOARD', <CiMail />, [
-			getItem(t('MENU_MAILINGS_ENDED'), 'MENU_MAILINGS_ENDED', <GiFinishLine />),
-			getItem(t('MENU_MAILINGS_IN_PROGRESS'), 'MENU_MAILINGS_IN_PROGRESS', <GiProgression />),
+			getItem(t('MENU_MAILINGS'), 'MENU_MAILINGS', <GiFinishLine />),
+			//getItem(t('MENU_MAILINGS_IN_PROGRESS'), 'MENU_MAILINGS_IN_PROGRESS', <GiProgression />),
 			getItem(t('MENU_MAILINGS_NEW'), 'MENU_MAILINGS_NEW', <AiOutlinePlus />),
 		]),
 		getItem(t('MENU_PARSING'), 'MENU_PARSING', <BiGroup />, [
@@ -54,7 +54,7 @@ const MainMenu = ({onChange}) => {
   return (
 		<div style={{ width: 300 }}>
 			<Menu
-				defaultSelectedKeys={['MENU_MAILINGS_ENDED']}
+				defaultSelectedKeys={['MENU_MAILINGS']}
 				defaultOpenKeys={['MENU_DASHBOARD']}
 				mode="inline"
 				theme="light"

@@ -26,6 +26,18 @@ const fetchProgress = async (t, id) => {
   return data
 }
 
+// "id": "1670522250.0883262",
+// "status": true,
+// "bots":
+// 555_555_3738"
+// ],
+// "started_at": 1670522250.0883262,
+// "name" :
+// 'Nmae"
+// 'amount_sent": 8,
+// "parseds": [
+// F
+
 const { Panel } = Collapse;
 
 const Mailings = ({ mailingsData }) => {
