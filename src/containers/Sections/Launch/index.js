@@ -222,6 +222,32 @@ const Panel = ({ bots, parsedGroups }) => {
   if (!hasSent)
     return (
       <>
+        <div onClick={async () => {
+          let url = `${process.env.REACT_APP_API_BASE_URL}/check_cors`
+          const options = {
+              method: "POST",
+                redirect: 'follow',
+                mode: "no-cors",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8",
+              },
+            };
+
+            await fetch(url, options)
+            .then((response) => {
+              if (response.type==='opaque' && !response.body) {
+                alert('DOESNT WORK')
+              } else {
+                alert('WORKS!!!')
+              }
+            })
+        }} style={{width: '300px', background: "red", height: '50px'}}>
+            CHECK CORS
+        </div>
+
+
+
         <div style={{ color: "#1890ff", fontSize: "15pt", padding: '10px' }}>{`${t(
           "AVAILABLE_BOTS"
         )} : ${bots?.map((b) => b.amount).reduce((p, c) => p + c, 0) || 0}`}</div>
@@ -295,6 +321,7 @@ const Panel = ({ bots, parsedGroups }) => {
         />
         
         {launchControls}
+
       </>
     );
   else
