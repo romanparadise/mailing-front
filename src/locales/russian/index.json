@@ -92,5 +92,6 @@
 "HOW_TO_PARSE_USERS": "Как правильно парсить пользователей",
 "HOW_TO_INVITE_TO_GROUP": "Рассылка приглашений в группу",
 "NO_DATA": "-",
-"GROUP_INVITING": "Приглашения в группу"
+"GROUP_INVITING": "Приглашения в группу",
+"BOTS_SURVIVED": "Ботов выжило"
 }

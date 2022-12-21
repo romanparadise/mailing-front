@@ -26,7 +26,7 @@ const Links = () => {
     );
 
   const removeLink = (link) =>
-    setLinks((prevLinks) => prevLinks.filter((l) => l !== link));
+    setLinks((prevLinks) => prevLinks?.filter((l) => l !== link));
 
   const sendParsingRequest = async () => {
     setHasStarted(true);

@@ -141,7 +141,7 @@ const Geo = () => {
 
       },
       onRemove: (point) =>
-        setPointsOnMap((prevPoints) => prevPoints.filter((p) => p !== point)),
+        setPointsOnMap((prevPoints) => prevPoints?.filter((p) => p !== point)),
     },
   };
   const circleMode = {

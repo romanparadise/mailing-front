@@ -129,7 +129,7 @@ const Mailings = ({ mailingsData=[], bots=[] }) => {
           botsDiedInMailings={botsDiedInMailings}
       />
       <Charts 
-        mailingsData={mailingsData.filter(i=>i.name)}
+        mailingsData={mailingsData?.filter(i=>i.name)}
       />
     </div>
   } else {
@@ -148,7 +148,7 @@ const Mailings = ({ mailingsData=[], bots=[] }) => {
           />
       </div>
       {(mailingsData && mailingsData.length) ? (<Collapse>
-        {mailingsData?.map((item) => {
+        {mailingsData?.slice().reverse().map((item) => {
           return (
             <Panel header={<div style={{textAlign: 'left'}}>{item.name || t('GROUP_INVITING')}{item.status && <div style={{float: 'right',color: '#1890ff'}}>{t('IN_PROGRESS')}<div style={{marginLeft: '10px', display: 'inline-block'}}><Spin /> </div></div>}</div>} key={item.id}>
               <div style={{textAlign: 'left', display: 'flex', width: '100%', borderBottom: '1px solid #ddd'}}>

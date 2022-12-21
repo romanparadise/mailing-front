@@ -50,7 +50,7 @@ const F = ({bots, parsedGroups, selectedBots, selectedGroups, setSelectedBots, s
 
     const parsedData = useMemo(() => {
       let reducedParsedGroups = []
-      parsedGroups.forEach(element => {
+      parsedGroups?.forEach(element => {
         if (reducedParsedGroups.map(i => i.name).includes(element.name)) {
           const thisOne = reducedParsedGroups.find(i => i.name === element.name)
 
@@ -123,7 +123,7 @@ const F = ({bots, parsedGroups, selectedBots, selectedGroups, setSelectedBots, s
               })}
               onChange={(groups) => {
                 const ids = []
-                parsedData.forEach(i => {
+                parsedData?.forEach(i => {
                   if (!groups.includes(i.name)) return 
                   
                   ids.push(...i.ids)

@@ -209,7 +209,7 @@ const Panel = ({ bots, parsedGroups }) => {
       let r = linksText.replaceAll(' ', ',')
       r = r.replaceAll('\n', ',')
       r = r.split(',')
-      r = r.filter(l => l.length > 0)
+      r = r?.filter(l => l.length > 0)
       setLinks({
         'links1': r,
       })
